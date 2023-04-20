@@ -11,7 +11,7 @@ using static Maplr.Cabane.SharedKernel.EnumUtils;
 
 namespace Maplr.Cabane.Core.Dtos.ViewBindingModel
 {
-    public class SucreBM
+    public class SucreBM : BaseVM
     {
         public string Name { get; set; }
         public string Description { get; set; }
