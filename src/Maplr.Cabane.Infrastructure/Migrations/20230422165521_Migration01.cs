@@ -33,20 +33,7 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sucre_t_sucre",
+                name: "produit_t_produit",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -66,16 +53,31 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sucre_t_sucre", x => x.Id);
+                    table.PrimaryKey("PK_produit_t_produit", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "panier_t_panier",
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "commande_t_commande",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     clientId = table.Column<int>(type: "int", nullable: false),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    montantCommande = table.Column<int>(type: "int", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     createdBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -86,9 +88,9 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_panier_t_panier", x => x.Id);
+                    table.PrimaryKey("PK_commande_t_commande", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_panier_t_panier_admin_t_users_clientId",
+                        name: "FK_commande_t_commande_admin_t_users_clientId",
                         column: x => x.clientId,
                         principalTable: "admin_t_users",
                         principalColumn: "Id",
@@ -117,15 +119,14 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "panier_t_lignePanier",
+                name: "commandeProduit_t_commandeProduit",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     quantite = table.Column<int>(type: "int", nullable: false),
-                    prix = table.Column<int>(type: "int", nullable: false),
-                    panierId = table.Column<int>(type: "int", nullable: false),
-                    sucreId = table.Column<int>(type: "int", nullable: false),
+                    commandeId = table.Column<int>(type: "int", nullable: false),
+                    produitId = table.Column<int>(type: "int", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     createdBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -136,35 +137,35 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_panier_t_lignePanier", x => x.Id);
+                    table.PrimaryKey("PK_commandeProduit_t_commandeProduit", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_panier_t_lignePanier_panier_t_panier_panierId",
-                        column: x => x.panierId,
-                        principalTable: "panier_t_panier",
+                        name: "FK_commandeProduit_t_commandeProduit_commande_t_commande_commandeId",
+                        column: x => x.commandeId,
+                        principalTable: "commande_t_commande",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_panier_t_lignePanier_sucre_t_sucre_sucreId",
-                        column: x => x.sucreId,
-                        principalTable: "sucre_t_sucre",
+                        name: "FK_commandeProduit_t_commandeProduit_produit_t_produit_produitId",
+                        column: x => x.produitId,
+                        principalTable: "produit_t_produit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_panier_t_lignePanier_panierId",
-                table: "panier_t_lignePanier",
-                column: "panierId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_panier_t_lignePanier_sucreId",
-                table: "panier_t_lignePanier",
-                column: "sucreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_panier_t_panier_clientId",
-                table: "panier_t_panier",
+                name: "IX_commande_t_commande_clientId",
+                table: "commande_t_commande",
                 column: "clientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_commandeProduit_t_commandeProduit_commandeId",
+                table: "commandeProduit_t_commandeProduit",
+                column: "commandeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_commandeProduit_t_commandeProduit_produitId",
+                table: "commandeProduit_t_commandeProduit",
+                column: "produitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ToDoItems_ProjectId",
@@ -175,16 +176,16 @@ namespace Maplr.Cabane.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "panier_t_lignePanier");
+                name: "commandeProduit_t_commandeProduit");
 
             migrationBuilder.DropTable(
                 name: "ToDoItems");
 
             migrationBuilder.DropTable(
-                name: "panier_t_panier");
+                name: "commande_t_commande");
 
             migrationBuilder.DropTable(
-                name: "sucre_t_sucre");
+                name: "produit_t_produit");
 
             migrationBuilder.DropTable(
                 name: "Projects");

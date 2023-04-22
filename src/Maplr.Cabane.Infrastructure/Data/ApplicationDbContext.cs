@@ -25,9 +25,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<ToDoItem> ToDoItems { get; set; }
     public DbSet<Project> Projects { get; set; }
 
-    public DbSet<Panier> Paniers => Set<Panier>();
-    public DbSet<LignePanier> LignePaniers => Set<LignePanier>();
-    public DbSet<Sucre> Sucres => Set<Sucre>();
+    public DbSet<Commande> Paniers => Set<Commande>();
+    public DbSet<CommandeProduit> CommandeProduits => Set<CommandeProduit>();
+    public DbSet<Produit> Produits => Set<Produit>();
     public DbSet<Client> Users => Set<Client>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

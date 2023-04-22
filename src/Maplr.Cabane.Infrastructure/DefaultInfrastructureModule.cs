@@ -34,7 +34,9 @@ public class DefaultInfrastructureModule : Module
     }
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<SucreDao>().As<ISucreDao>().InstancePerDependency();
+        builder.RegisterType<ProduitDao>().As<IProduitDao>().InstancePerDependency();
+        builder.RegisterType<CommandeDao>().As<ICommandeDao>().InstancePerDependency();
+
 
 
     }

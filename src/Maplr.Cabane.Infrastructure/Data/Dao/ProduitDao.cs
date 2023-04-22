@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Maplr.Cabane.Infrastructure.Data.Dao
 {
-    public  class SucreDao : RepositoryAsync<Sucre>, ISucreDao
+    public  class ProduitDao : RepositoryAsync<Produit>, IProduitDao
     {
-        public SucreDao(ApplicationDbContext dbContext) : base(dbContext)
+        public ProduitDao(ApplicationDbContext dbContext) : base(dbContext)
         {
             
         }

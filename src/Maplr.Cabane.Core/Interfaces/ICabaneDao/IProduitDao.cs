@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maplr.Cabane.Core.Interfaces.ICabaneDao
 {
-    public interface ISucreDao: IAsyncRepository<Sucre>
+    public interface IProduitDao: IAsyncRepository<Produit>
     {
 
     }

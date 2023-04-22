@@ -25,6 +25,6 @@ public class Client: BaseEntity
     public string Telephone { get; set; }
 
 
-    public ICollection<Panier> Paniers { get; set; }
+    public ICollection<Commande> Paniers { get; set; }
 
 }

@@ -12,6 +12,9 @@ public class DefaultCoreModule : Module
     {
         builder.RegisterType<ToDoItemSearchService>()
             .As<IToDoItemSearchService>().InstancePerLifetimeScope();
-        builder.RegisterType<SucreService>().As<ISucreService>().InstancePerLifetimeScope();
+
+        builder.RegisterType<ProduitService>().As<IProduitService>().InstancePerLifetimeScope();
+        builder.RegisterType<CommandeService>().As<ICommandeService>().InstancePerLifetimeScope();
+
     }
 }

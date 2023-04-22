@@ -9,8 +9,8 @@ using static Maplr.Cabane.SharedKernel.EnumUtils;
 
 namespace Maplr.Cabane.Core.Entities;
 
-[Table("sucre_t_sucre")]
-public  class Sucre : BaseEntity
+[Table("produit_t_produit")]
+public  class Produit : BaseEntity
 {
   [Column("name")]
   public string? Name { get; set; }
@@ -26,6 +26,6 @@ public  class Sucre : BaseEntity
   public TypeSucre type{ get; set; }
 
 
-    //public ICollection<LignePanier> LignePaniers { get; set; }
+    public ICollection<CommandeProduit> CommandeProduit { get; set; }
 
 }

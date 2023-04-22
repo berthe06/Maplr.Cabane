@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Maplr.Cabane.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230420090904_Migration01")]
+    [Migration("20230422165521_Migration01")]
     partial class Migration01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,66 +81,7 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                     b.ToTable("admin_t_users");
                 });
 
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.LignePanier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("code");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("createdAt");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("createdBy");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("description");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit")
-                        .HasColumnName("isActive");
-
-                    b.Property<int>("Prix")
-                        .HasColumnType("int")
-                        .HasColumnName("prix");
-
-                    b.Property<int>("Quantite")
-                        .HasColumnType("int")
-                        .HasColumnName("quantite");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("updatedAt");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("updatedBy");
-
-                    b.Property<int>("panierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sucreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("panierId");
-
-                    b.HasIndex("sucreId");
-
-                    b.ToTable("panier_t_lignePanier");
-                });
-
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Panier", b =>
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Commande", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,14 +121,77 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("clientId");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("date");
+
+                    b.Property<int>("montantCommande")
+                        .HasColumnType("int")
+                        .HasColumnName("montantCommande");
+
                     b.HasKey("Id");
 
                     b.HasIndex("clientId");
 
-                    b.ToTable("panier_t_panier");
+                    b.ToTable("commande_t_commande");
                 });
 
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Sucre", b =>
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.CommandeProduit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdAt");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("createdBy");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("isActive");
+
+                    b.Property<int>("Quantite")
+                        .HasColumnType("int")
+                        .HasColumnName("quantite");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("updatedAt");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("updatedBy");
+
+                    b.Property<int>("commandeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("produitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("commandeId");
+
+                    b.HasIndex("produitId");
+
+                    b.ToTable("commandeProduit_t_commandeProduit");
+                });
+
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Produit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -245,7 +249,7 @@ namespace Maplr.Cabane.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sucre_t_sucre");
+                    b.ToTable("produit_t_produit");
                 });
 
             modelBuilder.Entity("Maplr.Cabane.Core.ProjectAggregate.Project", b =>
@@ -291,26 +295,7 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                     b.ToTable("ToDoItems");
                 });
 
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.LignePanier", b =>
-                {
-                    b.HasOne("Maplr.Cabane.Core.Entities.Panier", "Panier")
-                        .WithMany("LignePaniers")
-                        .HasForeignKey("panierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Maplr.Cabane.Core.Entities.Sucre", "Sucre")
-                        .WithMany()
-                        .HasForeignKey("sucreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Panier");
-
-                    b.Navigation("Sucre");
-                });
-
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Panier", b =>
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Commande", b =>
                 {
                     b.HasOne("Maplr.Cabane.Core.Entities.Client", "Client")
                         .WithMany("Paniers")
@@ -319,6 +304,25 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.CommandeProduit", b =>
+                {
+                    b.HasOne("Maplr.Cabane.Core.Entities.Commande", "Commande")
+                        .WithMany("CommandeProduit")
+                        .HasForeignKey("commandeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maplr.Cabane.Core.Entities.Produit", "Produit")
+                        .WithMany("CommandeProduit")
+                        .HasForeignKey("produitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Commande");
+
+                    b.Navigation("Produit");
                 });
 
             modelBuilder.Entity("Maplr.Cabane.Core.ProjectAggregate.ToDoItem", b =>
@@ -333,9 +337,14 @@ namespace Maplr.Cabane.Infrastructure.Migrations
                     b.Navigation("Paniers");
                 });
 
-            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Panier", b =>
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Commande", b =>
                 {
-                    b.Navigation("LignePaniers");
+                    b.Navigation("CommandeProduit");
+                });
+
+            modelBuilder.Entity("Maplr.Cabane.Core.Entities.Produit", b =>
+                {
+                    b.Navigation("CommandeProduit");
                 });
 
             modelBuilder.Entity("Maplr.Cabane.Core.ProjectAggregate.Project", b =>

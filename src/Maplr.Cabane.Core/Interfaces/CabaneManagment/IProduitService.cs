@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Maplr.Cabane.Core.Interfaces.CabaneManagment
 {
-    public interface ISucreService
+    public interface IProduitService
     {
-        public Task<Response<int>> GetSucreByIdAsync(int sucreId);
-        public Task<Response<SucreVM>> CreateSucreAsync(SucreBM nodel);
+        public Task<Response<ProduitVM>> GetProduitByIdAsync(int produitId);
+        public Task<Response<ProduitVM>> CreateProduitAsync(ProduitBM nodel);
 
     }
 }

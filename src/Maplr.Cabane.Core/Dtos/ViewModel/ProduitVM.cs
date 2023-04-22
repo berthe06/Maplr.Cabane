@@ -9,8 +9,11 @@ using static Maplr.Cabane.SharedKernel.EnumUtils;
 
 namespace Maplr.Cabane.Core.Dtos.ViewModel
 {
-    public class SucreVM : BaseVM
+    public class ProduitVM
     {
+        public String? Description { get; set; }
+        public String Code { get; set; }
+        public String Name { get; set; }
 
         public string prix { get; set; }
         public string image { get; set; }
@@ -19,24 +22,19 @@ namespace Maplr.Cabane.Core.Dtos.ViewModel
     }
 
 
-    public static class SucreCopyData
+    public static class ProduitCopyData
     {
-        public static SucreVM CopyToModel(this Sucre entity)
+        public static ProduitVM CopyToModel(this Produit entity)
         {
-            SucreVM model = new()
+            ProduitVM model = new()
             {
-                Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
                 Code = entity.Code,
                 prix = entity.prix,
                 image = entity.image,
                 stock = entity.stock,
-                CreatedAt = entity.CreatedAt,
-                UpdatedAt = entity.UpdatedAt,
-                CreatedBy = entity.CreatedBy,
-                UpdatedBy = entity.UpdatedBy,
-                IsActive = entity.IsActive,
+      
             };
             return model;
         }
