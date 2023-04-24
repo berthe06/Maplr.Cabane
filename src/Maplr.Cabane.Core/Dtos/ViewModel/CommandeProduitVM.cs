@@ -13,23 +13,26 @@ namespace Maplr.Cabane.Core.Dtos.ViewModel
     {
         public String? Description { get; set; }
         public String? Code { get; set; }
-        public int clientId { get; set; }
+        public int produitId { get; set; }
+        public int commandeId { get; set; }
+
         public DateTime date { get; set; }
-        public int montantCommande { get; set; }
+        public int quantite { get; set; }
 
     }
 
-    public static class CommandeSucreCopyData
+    public static class CommandeProduitCopyData
     {
-        public static CommandeProduitVM ToModel(this Commande entity)
+        public static CommandeProduitVM ToModel(this CommandeProduit entity)
         {
             CommandeProduitVM model = new()
             {
                 Description = entity.Description,
                 Code = entity.Code,
-                montantCommande = entity.montantCommande,
-                clientId = entity.clientId,
-                date = entity.date,
+                produitId = entity.produitId,
+                commandeId = entity.commandeId,
+                quantite = entity.Quantite,
+                
 
             };
             return model;

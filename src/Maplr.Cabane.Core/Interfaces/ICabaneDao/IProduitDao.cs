@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Maplr.Cabane.Core.Interfaces.ICabaneDao
 {
-    public interface IProduitDao: IAsyncRepository<Produit>
+    public interface IProduitDao : IAsyncRepository<Produit>
     {
+        public List<Produit> GetProduit();
 
     }
 }

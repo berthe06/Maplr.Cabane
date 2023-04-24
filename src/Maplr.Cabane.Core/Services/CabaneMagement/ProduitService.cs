@@ -109,5 +109,102 @@ namespace Maplr.Cabane.Core.Services.CabaneMagement
 
             return response;
         }
+
+        public Response<List<ProduitVM>> GetProduitAsync()
+        {
+            List<ProduitVM> produitVMs = new();
+            string message = "";
+            int total = 0;
+            try
+            {
+                var produits =  _produitDao.GetProduit();
+                if (produits == null)
+                {
+                    return new Response<List<ProduitVM>>()
+                    {
+                        HttpStatus = MsgUtils.HTTP_404,
+                        Total = 0,
+                    };
+                }
+                else
+                {
+                    total = produits.Count;
+                    foreach (var produit in produits)
+                    {
+                        ProduitVM produitVM = produit.CopyToModel();
+                        produitVMs.Add(produitVM);
+                    }
+                    return new Response<List<ProduitVM>>()
+                    {
+                        Message = message,
+                        Total = total,
+                        Data = produitVMs,
+                        Success = true,
+                        HttpStatus = MsgUtils.HTTP_200,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                return new Response<List<ProduitVM>>
+                {
+                    HttpStatus = MsgUtils.HTTP_500,
+                    Success = false,
+                    StackTrace = ex.StackTrace
+                };
+            }
+        }
+
+
+        public List<Produit> GetProdui()
+        {
+            //List<ProduitVM> produitVMs = new();
+            string message = "";
+            int total = 0;
+            try
+            {
+                List<Produit> produits = _produitDao.GetProduit();
+
+                return produits.ToList();
+                /*if (produits == null)
+                {
+                    return new Response<List<ProduitVM>>()
+                    {
+                        HttpStatus = MsgUtils.HTTP_404,
+                        Total = 0,
+                    };
+                }
+                else
+                {
+                    total = produits.Count;
+                    foreach (var produit in produits)
+                    {
+                        ProduitVM produitVM = produit.CopyToModel();
+                        produitVMs.Add(produitVM);
+                    }
+                    return new Response<List<ProduitVM>>()
+                    {
+                        Message = message,
+                        Total = total,
+                        Data = produitVMs,
+                        Success = true,
+                        HttpStatus = MsgUtils.HTTP_200,
+                    };
+                }*/
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+               /* return new Response<List<ProduitVM>>
+                {
+                    HttpStatus = MsgUtils.HTTP_500,
+                    Success = false,
+                    StackTrace = ex.StackTrace
+                };*/
+            }
+        }
+
     }
 }

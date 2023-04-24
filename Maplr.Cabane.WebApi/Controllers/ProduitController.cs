@@ -1,4 +1,6 @@
-﻿using Maplr.Cabane.Core.Dtos.ViewBindingModel;
+﻿using Maplr.Cabane.Core.Dtos;
+using Maplr.Cabane.Core.Dtos.ViewBindingModel;
+using Maplr.Cabane.Core.Dtos.ViewModel;
 using Maplr.Cabane.Core.Interfaces.CabaneManagment;
 using Maplr.Cabane.SharedKernel;
 using Microsoft.AspNetCore.Http;
@@ -45,5 +47,16 @@ namespace Maplr.Cabane.WebApi.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet]
+        public  Response<List<ProduitVM>> GetProduit()
+        {
+            var result =  _produitService.GetProduitAsync();
+            if (result.HttpStatus.Equals(MsgUtils.HTTP_500))
+            {
+                //return StatusCode( result);
+            }
+            return (result);
+        }
     }
 }

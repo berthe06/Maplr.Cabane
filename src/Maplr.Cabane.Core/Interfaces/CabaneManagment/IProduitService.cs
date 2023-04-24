@@ -15,5 +15,12 @@ namespace Maplr.Cabane.Core.Interfaces.CabaneManagment
         public Task<Response<ProduitVM>> GetProduitByIdAsync(int produitId);
         public Task<Response<ProduitVM>> CreateProduitAsync(ProduitBM nodel);
 
+        //public Task<Response<List<ProduitVM>>> GetProduitAsync();
+
+        public Response<List<ProduitVM>> GetProduitAsync();
+
+
+
+
     }
 }

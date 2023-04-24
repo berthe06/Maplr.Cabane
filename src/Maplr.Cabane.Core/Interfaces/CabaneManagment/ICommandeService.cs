@@ -12,9 +12,10 @@ namespace Maplr.Cabane.Core.Interfaces.CabaneManagment
 {
     public interface ICommandeService
     {
-        public Task<Response<CommandeVM>> GetCommandeByIdAsync(int panierId);
+        public Task<Response<CommandeVM>> GetCommandeByIdAsync(int commandeId);
         public Task<Response<CommandeVM>> CreateCommandeAsync(CommandeBM model);
 
         public Task<Response<CommandeVM>> GetCommandeByClientIdAsync(int clientId);
+
     }
 }
